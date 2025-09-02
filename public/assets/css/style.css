@@ -1,0 +1,42 @@
+body, html {
+    height: 100%;
+}
+
+body {
+    background-color: #000
+}
+
+.bg-black {
+    background-color: #000 !important;
+}
+
+.form-wrapper{
+    border-radius: 7px;
+}
+
+.form-wrapper label{
+    font-weight: bold;
+}
+
+.errors li{
+    list-style: none;
+    width: 100%;
+    text-align: center
+}
+
+.errors ul{
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px){
+    .form-wrapper .text-right{
+        text-align: center !important; 
+    }
+
+    .form-wrapper .btn-primary{
+        display: block;
+        margin: 0 auto;
+    }
+}
+
