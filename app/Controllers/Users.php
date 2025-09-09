@@ -70,31 +70,63 @@ class Users extends BaseController
         helper(['form']);
         $data = ['title' => 'Register'];
 
-        if($this->request->getMethod() == 'POST')
-        {
+        if ($this->request->getMethod() == 'POST') {
             $rules = [
                 'username' => 'required|min_length[3]|max_length[20]',
-                'email' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.user_email]',
+                'email' => [
+                    'label' => 'Email',
+                    'rules' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.user_email]',
+                    'errors' => [
+                        'is_unique' => 'This email has already been used.'
+                    ]
+                ],
                 'password' => 'required|min_length[8]|max_length[255]',
-                'password_confirm' => 'matches[password]'
+                'password_confirm' => [
+                    'rules' => 'matches[password]',
+                    'label' => 'Confirm Password',
+                ],
+                'profile_picture' => [
+                    'rules' => 'is_image[profile_picture]|mime_in[profile_picture,image/jpg,image/jpeg,image/png]|max_size[profile_picture,2048]',
+                    'errors' => [
+                        'is_image' => 'Please upload a valid image file (jpg, jpeg, png).',
+                        'mime_in' => 'Your image must be a jpg, jpeg, or png file.',
+                        'max_size' => 'Your image is too large. Maximum size is 2MB.'
+                    ]
+                ]
             ];
 
-            if(!$this->validate($rules))
-            {
-                $data['validation'] = $this->validator;
-                $data['old_input'] = $this->request->getPost();
-            }
-            else
-            {
-                $model = new UserModel();
+            if (!$this->validate($rules)) {
+                if ($this->request->isAJAX()) {
+                    return $this->response
+                        ->setStatusCode(400)
+                        ->setJSON(['errors' => $this->validator->getErrors()]);
+                } else {
+                    $data['validation'] = $this->validator;
+                    $data['old_input'] = $this->request->getPost();
+                }
+            } else {
+                $img = $this->request->getFile('profile_picture');
+                $newName = 'default_avatar.png';
 
+                if ($img && $img->isValid() && !$img->hasMoved()) {
+                    $newName = $img->getRandomName();
+                    $img->move('./assets/uploads/avatars', $newName);
+                }
+
+                $model = new UserModel();
                 $newData = [
                     'username' => $this->request->getVar('username'),
                     'user_email' => $this->request->getVar('email'),
-                    'password' => $this->request->getVar('password')
+                    'password' => $this->request->getVar('password'),
+                    'profile_picture' => $newName
                 ];
 
                 $model->save($newData);
+
+                if ($this->request->isAJAX()) {
+                    return $this->response->setJSON(['status' => 'success']);
+                }
+
                 $session = session();
                 $session->setFlashdata('success', 'Successful Registration');
                 return redirect()->to(base_url('/login'));
@@ -103,7 +135,7 @@ class Users extends BaseController
 
         echo view('register', $data);
     }
-
+    
     public function profile()
     {
         helper(['form']);

@@ -41,7 +41,7 @@
       <div class="tab-content">
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <div class="d-flex flex-column align-items-center py-5">
-            <img src="<?= base_url('assets/img/reviwer1.jpg') ?>" alt="Profile Picture" class="rounded-circle mb-3" width="150" height="150">
+            <img src="<?= base_url('assets/uploads/avatars/' . esc($user['profile_picture'])) ?>" alt="Profile Picture" class="rounded-circle mb-3" width="150" height="150">
             <h3 class="text-light"><?= esc($user['username']) ?></h3>
 
             <form action="<?= base_url('/dashboard') ?>" method="POST" class="mt-3" style="width: 100%; max-width: 500px;">
