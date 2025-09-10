@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="<?= base_url('assets/img/crown_logo.png') ?>">
     <title><?= $title ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
@@ -50,12 +51,18 @@
 
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <div class="password-wrapper">
+                                <input type="password" name="password" id="password" class="form-control">
+                                <i class="bi bi-eye-slash toggle-password"></i>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="password_confirm">Confirm Password</label>
-                            <input type="password" name="password_confirm" id="password_confirm" class="form-control">
+                            <div class="password-wrapper">
+                                <input type="password" name="password_confirm" id="password_confirm" class="form-control">
+                                <i class="bi bi-eye-slash toggle-password"></i>
+                            </div>
                         </div>
 
                         <div class="alert alert-danger errors" role="alert" style="display: none;">

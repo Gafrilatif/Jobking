@@ -1,6 +1,18 @@
 $(document).ready(function(){
 
 
+    $('.toggle-password').on('click', function() {
+        $(this).toggleClass('bi-eye-slash bi-eye');
+
+        var input = $(this).prev('input');
+
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+        } else {
+            input.attr('type', 'password');
+        }
+    });
+
     $('#profile_picture_input').on('change', function(e) {
         var fileNameContainer = $(this).closest('.custom-file-container').find('.file-name');
         var avatarPreview = $('#avatar-preview');

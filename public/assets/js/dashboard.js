@@ -27,7 +27,7 @@ $(document).ready(function() {
                         <div class="feature-detail d-flex align-items-center">
                             <div class="left-section d-flex align-items-center">
                                 <div class="profile-picture me-3 align-items-center justify-content-center">
-                                    <img src="${baseUrl}/assets/img/reviwer1.jpg" alt="${commission.username}" class="rounded-circle" width="100" height="100">
+                                    <img src="${baseUrl}/assets/uploads/avatars/${commission.profile_picture}" alt="${commission.username}" class="rounded-circle" width="100" height="100">
                                     <h5 class="text-light username">${commission.username}</h5>
                                 </div>
                             </div>
